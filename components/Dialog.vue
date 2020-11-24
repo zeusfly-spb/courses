@@ -23,6 +23,7 @@
           Название <input type="text" v-model="name"> 
           Описание <input type="text" v-model="description">
           Цена <input type="number" v-model="price">
+          Дата начала <input type="date" v-model="date">
         </section>
         <footer class="modal-footer">
             <div>

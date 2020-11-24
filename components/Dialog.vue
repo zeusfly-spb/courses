@@ -32,6 +32,7 @@
                 <button
                     type="button"
                     class="btn-green"
+                    :disabled="!valid"
                     @click="addCourse"
                 >
                     Добавить
@@ -55,6 +56,17 @@
         computed: {
           panel () {
             return this.$store.state.panel
+          },
+          filedsValid () {
+            return {
+              name: this.name.length > 0,
+              description: this.description.length > 0,
+              price: this.price > 0,
+              date: !!this.date
+            }
+          },
+          valid () {
+            return Object.values(this.filedsValid).every(item => !!item)
           }
         },
         methods: {

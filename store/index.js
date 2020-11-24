@@ -5,6 +5,9 @@ export const state = () => {
 }
 
 export const mutations = {
+    ADD_COURSE (state, course) {
+        state.courses.push(course)
+    },
     SET_COURSES (state) {
         state.courses = courses
     }

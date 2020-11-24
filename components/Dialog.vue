@@ -10,40 +10,37 @@
           class="modal-header"
           id="modalTitle"
         >
-          <slot name="header">
-            This is the default tile!
-
-            <button
-              type="button"
-              class="btn-close"
-              @click="close"
-              aria-label="Close modal"
-            >
-              x
-            </button>
-          </slot>
+          <div
+            style="width: 500px"
+          >
+            Добавление курса
+          </div>
         </header>
         <section
           class="modal-body"
           id="modalDescription"
         >
-          <slot name="body">
-            I'm the default body!
-          </slot>
+          Название <input type="text" v-model="name"> 
+          Описание <input type="text" v-model="description">
+          Цена <input type="number" v-model="price">
         </section>
         <footer class="modal-footer">
-          <slot name="footer">
-            I'm the default footer!
-
-            <button
-              type="button"
-              class="btn-green"
-              @click="close"
-              aria-label="Close modal"
-            >
-              Отмена
-            </button>
-          </slot>
+            <div>
+                <button
+                    type="button"
+                    class="btn-white"
+                    @click="close"
+                >
+                    Отмена
+                </button>
+                <button
+                    type="button"
+                    class="btn-green"
+                    @click="addCourse"
+                >
+                    Добавить
+                </button>
+            </div>
         </footer>
       </div>
     </div>
@@ -53,10 +50,33 @@
 <script>
     export default {
         name: 'Dialog',
+        data: () => ({
+            name: '',
+            description: '',
+            price: 0,
+            date: ''
+        }),
         methods: {
-            close() {
-                this.$emit('close');
+            nextId () {
+                const exists = this.$store.state.courses.map(course => +course.id)
+                return exists.length && exists[exists.length - 1] && exists[exists.length - 1] + 1 || 1
             },
+            close () {
+                this.$emit('close')
+            },
+            addCourse () {
+                this.$store.commit('ADD_COURSE', {
+                    id: this.nextId(),
+                    name: this.name,
+                    description: this.description,
+                    price: this.price,
+                    date: this.date
+                })
+                this.close()
+            }
+        },
+        created () {
+            this.date = this.$moment(new Date()).format('YYYY-MM-DD')
         }
     }
 </script>
@@ -75,6 +95,7 @@
   }
 
   .modal {
+    border-radius: .3em;
     background: #FFFFFF;
     box-shadow: 2px 2px 20px 1px;
     overflow-x: auto;
@@ -107,7 +128,6 @@
   .btn-close {
     border: none;
     font-size: 20px;
-    padding: 20px;
     cursor: pointer;
     font-weight: bold;
     color: #4AAE9B;
@@ -121,4 +141,10 @@
     border-radius: 2px;
   }
 
+  .btn-white {
+    color: black;
+    background: white;
+    border: 1px solid #4AAE9B;
+    border-radius: 2px;
+  }
 </style>

@@ -1,5 +1,15 @@
 <template>
     <div>
+        <div
+            class="activator"
+        >
+            <button
+                title="Добавить курс"
+                @click=showPanel
+            >
+                Добавить
+            </button>
+        </div>
         <table>
             <thead>
                 <tr>
@@ -18,15 +28,30 @@
                 />
             </tbody>
         </table>
+         <Dialog
+            v-show="panel"
+            @close="hidePanel"
+        />
     </div>
 </template>
 
 <script>
     export default {
         name: 'Table',
+        data: () => ({
+            panel: false
+        }),
         computed: {
             courses () {
                 return this.$store.state.courses
+            }
+        },
+        methods: {
+            showPanel () {
+                this.panel = true
+            },
+            hidePanel () {
+                this.panel = false
             }
         },
         created () {
@@ -36,6 +61,11 @@
 </script>
 
 <style>
+    .activator {
+        display: flex;
+        width: 100%;
+        margin-bottom: 1em;
+    }
     table {
         border-collapse: collapse;
         width: 1200px;

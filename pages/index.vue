@@ -8,14 +8,6 @@
 <script>
 export default {
   name: 'index',
-  computed: {
-    courses () {
-      return this.$store.state.courses
-    }
-  },
-  created () {
-    this.$store.commit('SET_COURSES')
-  }
 }
 </script>
 

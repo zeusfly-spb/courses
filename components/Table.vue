@@ -44,10 +44,10 @@
 <script>
     export default {
         name: 'Table',
-        data: () => ({
-            panel: false
-        }),
         computed: {
+            panel () {
+                return this.$store.state.panel
+            },
             confirm () {
                 return !!this.deletingCourse
             },
@@ -60,10 +60,12 @@
         },
         methods: {
             showPanel () {
-                this.panel = true
+                this.$store.commit('SET_PANEL_VALUE', true)
+                // this.panel = true
             },
             hidePanel () {
-                this.panel = false
+                this.$store.commit('SET_PANEL_VALUE', false)
+                // this.panel = false
             }
         },
         created () {

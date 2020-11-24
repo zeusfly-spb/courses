@@ -1,11 +1,15 @@
 const courses = require('../courses.json')
 
 export const state = {
+    panel: false,
     courses: [],
     deletingCourse: null
 }
 
 export const mutations = {
+    SET_PANEL_VALUE (state, val) {
+        state.panel = val
+    },
     SORT_BY_DATE_DOWN (state) {
         const dateDown = (a, b) => a.date > b.date ? -1 : a.date < b.date ? 1 : 0
         state.courses.sort(dateDown)

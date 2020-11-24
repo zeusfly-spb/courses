@@ -52,7 +52,15 @@
             price: 0,
             date: ''
         }),
+        computed: {
+          panel () {
+            return this.$store.state.panel
+          }
+        },
         methods: {
+            resetInputs () {
+              [this.name, this.description, this.price, this.date] = ['', '', 0, this.$moment(new Date()).format('YYYY-MM-DD')]
+            },
             nextId () {
                 const exists = this.$store.state.courses.map(course => +course.id)
                 return exists.length && exists[exists.length - 1] && exists[exists.length - 1] + 1 || 1
@@ -73,6 +81,11 @@
         },
         created () {
             this.date = this.$moment(new Date()).format('YYYY-MM-DD')
+        },
+        watch: {
+          panel (val) {
+            !val ? this.resetInputs() : null
+          }
         }
     }
 </script>

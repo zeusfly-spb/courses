@@ -19,7 +19,7 @@
                     <th>Название</th>
                     <th>Описание</th>
                     <th>Цена <SortIcon field="price"/></th>
-                    <th>Дата начала</th>
+                    <th>Дата начала <SortIcon field="date"/></th>
                     <th>Действия</th>
                 </tr>
             </thead>

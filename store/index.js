@@ -6,6 +6,14 @@ export const state = {
 }
 
 export const mutations = {
+    SORT_BY_DATE_DOWN (state) {
+        const dateDown = (a, b) => a.date > b.date ? -1 : a.date < b.date ? 1 : 0
+        state.courses.sort(dateDown)
+    },
+    SORT_BY_DATE_UP (state) {
+        const dateUp = (a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : 0
+        state.courses.sort(dateUp)
+    },
     SORT_BY_PRICE_DOWN (state) {
         const priceReduce = (a, b) => a.price - b.price
         state.courses.sort(priceReduce)

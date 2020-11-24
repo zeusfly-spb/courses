@@ -19,17 +19,20 @@
         }),
         computed: {
             mutationName () {
-                if (this.field === 'price') {
-                    return this.downward ? 'SORT_BY_PRICE_UP' : 'SORT_BY_PRICE_DOWN'
-                } else {
-                    return this.downward ? 'SORT_BY_DATE_DOWN' : 'SORT_BY_DATE_UP'
+                switch (this.field) {
+                    case 'price':
+                        return this.downward ? 'SORT_BY_PRICE_UP' : 'SORT_BY_PRICE_DOWN'
+                    case 'date':
+                        return this.downward ? 'SORT_BY_DATE_DOWN' : 'SORT_BY_DATE_UP'
+                    default:
+                        return null
                 }
             }
         },
         methods: {
             turn () {
                 this.downward = !this.downward
-                this.$store.commit(this.mutationName)
+                this.mutationName ? this.$store.commit(this.mutationName) : null
             }
         }
     }

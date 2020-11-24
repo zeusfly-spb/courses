@@ -29,9 +29,12 @@
                 />
             </tbody>
         </table>
-         <Dialog
+        <Dialog
             v-show="panel"
             @close="hidePanel"
+        />
+        <Confirm
+            v-show="confirm"
         />
     </div>
 </template>
@@ -43,6 +46,12 @@
             panel: false
         }),
         computed: {
+            confirm () {
+                return !!this.deletingCourse
+            },
+            deletingCourse () {
+                return this.$store.state.deletingCourse
+            },
             courses () {
                 return this.$store.state.courses
             }

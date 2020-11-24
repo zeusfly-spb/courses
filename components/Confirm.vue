@@ -9,32 +9,29 @@
         <header
           class="modal-header"
         >
-            Добавление курса
+            Удаление курса
         </header>
         <section
           class="modal-body"
           id="modalDescription"
         >
-          Название <input type="text" v-model="name"> 
-          Описание <input type="text" v-model="description">
-          Цена <input type="number" v-model="price">
-          Дата начала <input type="date" v-model="date">
+          Удалить курс '{{ deletingCourse && deletingCourse.name || ''}}'?         
         </section>
         <footer class="modal-footer">
             <div>
                 <button
                     type="button"
                     class="btn-white"
-                    @click="close"
+                    @click="cancel"
                 >
                     Отмена
                 </button>
                 <button
                     type="button"
-                    class="btn-green"
-                    @click="addCourse"
+                    class="btn-red"
+                    @click="deleteCourse"
                 >
-                    Добавить
+                    Удалить
                 </button>
             </div>
         </footer>
@@ -45,31 +42,19 @@
 
 <script>
     export default {
-        name: 'Dialog',
-        data: () => ({
-            name: '',
-            description: '',
-            price: 0,
-            date: ''
-        }),
+        name: 'Confirm',
+        computed: {
+          deletingCourse () {
+            return this.$store.state.deletingCourse
+          }
+        },
         methods: {
-            nextId () {
-                const exists = this.$store.state.courses.map(course => +course.id)
-                return exists.length && exists[exists.length - 1] && exists[exists.length - 1] + 1 || 1
-            },
-            close () {
-                this.$emit('close')
-            },
-            addCourse () {
-                this.$store.commit('ADD_COURSE', {
-                    id: this.nextId(),
-                    name: this.name,
-                    description: this.description,
-                    price: this.price,
-                    date: this.date
-                })
-                this.close()
-            }
+          deleteCourse () {
+            this.$store.commit('DELETE_COURSE')
+          },
+          cancel () {
+            this.$store.commit('SET_DELETING_COURSE', null)
+          }
         },
         created () {
             this.date = this.$moment(new Date()).format('YYYY-MM-DD')
@@ -106,7 +91,7 @@
   }
 
   .modal-header {
-    background-color:  #4AAE9B;
+    background-color:  #FF1744;
     border-bottom: 1px solid #eeeeee;
     color: white;
     justify-content: space-between;
@@ -131,10 +116,10 @@
     background: transparent;
   }
 
-  .btn-green {
+  .btn-red {
     color: white;
-    background: #4AAE9B;
-    border: 1px solid #4AAE9B;
+    background: #FF1744;
+    border: 1px solid #FF1744;
     border-radius: 2px;
   }
 

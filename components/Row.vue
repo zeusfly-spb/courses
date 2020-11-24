@@ -9,6 +9,7 @@
             <i 
                 class="material-icons delete clickable"
                 :title="`Удалить курс '${course.name}'`"
+                @click="toDelete"
             >
                 delete
             </i>
@@ -21,13 +22,18 @@
         name: 'Row',
         props: {
             course: Object
+        },
+        methods: {
+            toDelete () {
+                this.$store.commit('SET_DELETING_COURSE', this.course)
+            }
         }
     }
 </script>
 
 <style scoped>
 .delete {
-    color: #B71C1C;
+    color: #FF1744;
 }
 .clickable {
     cursor: pointer;

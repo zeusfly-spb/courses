@@ -31,7 +31,7 @@
     }
 </script>
 
-<style scoped>
+<style>
 .delete {
     color: #FF1744;
 }

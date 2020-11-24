@@ -6,6 +6,14 @@ export const state = {
 }
 
 export const mutations = {
+    SORT_BY_PRICE_DOWN (state) {
+        const priceReduce = (a, b) => a.price - b.price
+        state.courses.sort(priceReduce)
+    },
+    SORT_BY_PRICE_UP (state) {
+        const priceIncrease = (a, b) => b.price - a.price
+        state.courses.sort(priceIncrease)
+    },
     SET_DELETING_COURSE (state, course) {
         state.deletingCourse = course
     },

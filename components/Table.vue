@@ -9,6 +9,8 @@
             >
                 Добавить
             </button>
+            <div>
+            </div>
         </div>
         <table>
             <thead>
@@ -16,7 +18,7 @@
                     <th>#</th>
                     <th>Название</th>
                     <th>Описание</th>
-                    <th>Цена</th>
+                    <th>Цена <SortIcon field="price"/></th>
                     <th>Дата начала</th>
                     <th>Действия</th>
                 </tr>
@@ -73,6 +75,7 @@
 <style>
     .activator {
         display: flex;
+        justify-content: space-between;
         width: 100%;
         margin-bottom: 1em;
     }

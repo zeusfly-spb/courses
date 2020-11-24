@@ -1,7 +1,11 @@
 <template>
     <tr>
         <td>{{ course.id }}</td>
-        <td>{{ course.name }}</td>
+        <td>
+            <nuxt-link :to="'course/' + course.id">
+                {{ course.name }}
+            </nuxt-link>
+        </td>
         <td>{{ course.description }}</td>
         <td>{{ course.price }}</td>
         <td>{{ course.date }}</td>

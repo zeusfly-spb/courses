@@ -1,10 +1,10 @@
 const courses = require('../courses.json')
 
-export const state = {
+export const state = () => ({
     panel: false,
     courses: [],
     deletingCourse: null
-}
+})
 
 export const mutations = {
     SET_PANEL_VALUE (state, val) {

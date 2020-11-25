@@ -7,9 +7,9 @@
         aria-describedby="modalDescription"
       >
         <header
-          class="modal-header"
+          :class="{'update-header' : course, 'modal-header': !course}"
         >
-            Добавление курса
+            {{ course ? 'Редактирование курса' : 'Добавление курса' }}
         </header>
         <section
           class="modal-body"
@@ -160,6 +160,13 @@
   .modal-footer {
     padding: 15px;
     display: flex;
+  }
+
+  .update-header {
+      background-color:  blue;
+      border-bottom: 1px solid #eeeeee;
+      color: white;
+      justify-content: space-between;
   }
 
   .modal-header {

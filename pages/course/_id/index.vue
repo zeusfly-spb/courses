@@ -1,6 +1,17 @@
 <template>
     <div class="container">
         <div
+            class="back"
+        >
+            <i 
+                class="material-icons clickable"
+                title="В общий список"
+                @click="$router.push('/')"
+            >
+                keyboard_backspace
+            </i>
+        </div>
+        <div
             class="info"
         >
             <div
@@ -95,6 +106,14 @@
 </script>
 
 <style>
+    .back {
+        border-radius: .3em;
+        color: white;
+        position: fixed;
+        top: 1em;
+        left: 1em;
+        background-color: #4AAE9B;
+    }
     .field {
         color: #2962FF;        
     }

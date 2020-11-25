@@ -69,7 +69,7 @@
             }
         },
         created () {
-            this.$store.commit('SET_COURSES')
+            !this.courses.length ? this.$store.commit('SET_COURSES') : null
         }      
     }
 </script>

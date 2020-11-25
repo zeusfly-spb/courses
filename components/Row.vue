@@ -36,6 +36,8 @@
 </script>
 
 <style>
+a {  text-decoration: none;}
+
 .delete {
     color: #FF1744;
 }
@@ -46,5 +48,4 @@
 .clickable:HOVER {
     opacity: 1;
 }
-
 </style>

@@ -7,6 +7,9 @@ export const state = () => ({
 })
 
 export const mutations = {
+    UPDATE_COURSE (state, course) {
+        state.courses = state.courses.map(item => +item.id === +course.id ? course : item)
+    },
     SET_PANEL_VALUE (state, val) {
         state.panel = val
     },

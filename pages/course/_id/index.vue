@@ -8,8 +8,7 @@
             >
                 Название: 
                 <span
-                    class="field clickable"
-                    @click="toggleEdit('name')"
+                    class="field"
                 >
                     {{ course && course.name || ''}} 
                 </span>
@@ -19,8 +18,7 @@
             >
                 Описание:
                 <span
-                    class="field clickable"
-                    @click="toggleEdit('description')"
+                    class="field"
                 >
                     {{ course && course.description || ''}}
                 </span>
@@ -30,8 +28,7 @@
             >
                 Цена:
                 <span
-                    class="field clickable"
-                    @click="toggleEdit('price')"
+                    class="field"
                 >
                     {{ course && course.price || ''}}
                 </span> 
@@ -41,13 +38,25 @@
             >
                 Дата начала:
                 <span
-                    class="field clickable"
-                    @click="toggleEdit('date')"
+                    class="field"
                 >
                     {{ course && course.date || ''}}
                 </span>
             </div>
+            <div>
+                <button
+                    @click="showDialog"
+                >
+                    Редактировать
+                </button>
+            </div>
         </div>
+        <Dialog
+            :course="course"
+            v-show="dialog"
+            @close="hideDialog"
+        />
+
     </div>
 </template>
 
@@ -55,46 +64,31 @@
     export default {
         name: 'Course',
         data: () => ({
-            edit: {
-                name: false,
-                description: false,
-                price: false,
-                date: false
-            }
+            dialog: false,
+            
         }),
         computed: {
             id () {
                 return this.$route.params.id
             },
-            course () {
-                return this.$store.state.courses.find(item => +item.id === +this.id)
-            },
             courses () {
                 return this.$store.state.courses
+            },
+            course () {
+                return this.$store.state.courses.find(item => +item.id === +this.id)
             }
         },
         methods: {
-            cancelEdit () {
-                for (let key in this.edit) {
-                    this.edit[key] = false
-                }
+            showDialog () {
+                this.dialog = true
             },
-            toggleEdit (field) {
-                this.edit[field] = !this.edit[field]
-                console.log(field)
-                console.dir(this.edit)
-                if (this.edit[field]) {
-                    for (let key in this.edit) {
-                        key !== field ? this.edit[key] = false : null
-                    }
-                }
+            hideDialog () {
+                this.dialog = false
             }
         },
-        watch: {
-            courses (val) {
-                if (!val) {
-                    this.$router.push('/')
-                }
+        created () {
+            if (!this.courses.length) {
+                this.$store.commit('SET_COURSES')
             }
         }
     }
@@ -113,7 +107,7 @@
         align-items: center;
         text-align: center;
         background-color: #E3F2FD;
-        width: 60em;
+        width: 90em;
         height: 30em;
     }
     .container {

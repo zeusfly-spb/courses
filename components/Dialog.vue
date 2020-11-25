@@ -30,12 +30,22 @@
                     Отмена
                 </button>
                 <button
+                    v-if="!course"
                     type="button"
                     class="btn-green"
                     :disabled="!valid"
                     @click="addCourse"
                 >
                     Добавить
+                </button>
+                <button
+                    v-if="course"
+                    type="button"
+                    class="btn-blue"
+                    :disabled="!valid"
+                    @click="updateCourse"
+                >
+                    Сохранить
                 </button>
             </div>
         </footer>
@@ -47,6 +57,9 @@
 <script>
     export default {
         name: 'Dialog',
+        props: {
+          course: Object
+        },
         data: () => ({
             name: '',
             description: '',
@@ -70,6 +83,17 @@
           }
         },
         methods: {
+            updateCourse () {
+              const updated = {
+                name: this.name,
+                description: this.description,
+                price: this.price,
+                date: this.date,
+                id: this.course.id
+              }
+              this.$store.commit('UPDATE_COURSE', updated)
+              this.close()
+            },
             resetInputs () {
               [this.name, this.description, this.price, this.date] = ['', '', 0, this.$moment(new Date()).format('YYYY-MM-DD')]
             },
@@ -93,6 +117,14 @@
         },
         created () {
             this.date = this.$moment(new Date()).format('YYYY-MM-DD')
+        },
+        mounted () {
+          if (this.course) {
+            this.name = this.course.name
+            this.description = this.course.description
+            this.price = this.course.price
+            this.date = this.course.date
+          }
         },
         watch: {
           panel (val) {
@@ -162,6 +194,12 @@
     border: 1px solid #4AAE9B;
     border-radius: 2px;
   }
+  .btn-blue {
+      color: white;
+      background: blue;
+      border: 1px solid #4AAE9B;
+      border-radius: 2px;
+   }
 
   .btn-white {
     color: black;

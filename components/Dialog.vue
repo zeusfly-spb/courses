@@ -163,6 +163,7 @@
   }
 
   .update-header {
+      padding: .7em;
       background-color:  blue;
       border-bottom: 1px solid #eeeeee;
       color: white;
